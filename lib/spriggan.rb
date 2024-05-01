@@ -10,6 +10,7 @@ class Spriggan
     @beanstalk_port = beanstalk_port
     @beanstalk = Beaneater.new("#{@beanstalk_host}\:#{@beanstalk_port}")
     @module_name = module_name
+    @core_threads = []
   end #def
 
   # Logs a message to stdout, with flush to work with PM2
@@ -18,16 +19,22 @@ class Spriggan
     $stdout.flush
   end
 
-  def seng_msg(msg)
-    msg_str = msg.to_yaml
-    msg64 = Base64.encode64(msg_str)
-    return msg64
+  def seng_msg(obj, tube)
+    bean = @beanstalk.tubes[tube]
+    msg = obj.to_yaml
+    msg64 = Base64.encode64(msg)
+    bean.put msg64
   end
 
   def open_msg(msg64)
     msg = Base64.decode64(msg64)
     obj = YAML.load(msg)
     return obj
+  end
+
+  def self.add_thread(&block)
+    thr = Thread.new { Thread.stop; block.call }
+    @core_threads << thr
   end
 
   def self.run
