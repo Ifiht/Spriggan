@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = "spriggan"
   s.version = "0.0.0"
   s.required_ruby_version = '>= 3.0.0'
-  s.add_dependency('beaneater', '>= 1.1.0')
+  s.add_runtime_dependency 'beaneater', '~> 1.1', '>= 1.1.0'
   s.summary = "Spriggan 🌱"
   s.description = "Climb the beanstalk..."
   s.authors = ["Ifiht"]
@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.files = ["lib/spriggan.rb"]
   s.homepage =
     "https://rubygems.org/gems/spriggan"
-  s.license = " GPL-3.0"
+  s.license = "GPL-3.0-only"
 end
