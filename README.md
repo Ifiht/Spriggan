@@ -1,3 +1,4 @@
+![xUnit Tests](https://github.com/Ifiht/Spriggan/actions/workflows/ruby.yml/badge.svg)
 
 <img src="https://raw.githubusercontent.com/Ifiht/Spriggan/main/resources/dhl4_harp_by_Rasgar.png" width="109" height="109">
 
