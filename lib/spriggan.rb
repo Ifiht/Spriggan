@@ -51,7 +51,7 @@ class Spriggan
   # immediately to sleep
   def add_thread(&block)
     puts "adding thread..."
-    thr = Thread.new { Thread.stop; block.call }
+    thr = Thread.new { block.call }
     @core_threads << thr
   end
 
@@ -68,11 +68,7 @@ class Spriggan
       pm2_log "Exiting gracefully."
       exit
     }
-    @core_threads.each { |thr| thr.wakeup }
-    @core_threads.each { |thr| thr.run }
-    #if @core_threads.count > 1
-    #  @core_threads.each { |thr| thr.join }
-    #end #if
+    @core_threads.each { |thr| thr.join }
     @core_threads = []
   end #def
 end
