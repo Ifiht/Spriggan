@@ -34,6 +34,8 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install beanstalkd
+      run: sudo apt install -y beanstalkd
     - name: Build gem
       run: bundle install
     - name: Run tests
