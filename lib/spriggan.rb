@@ -42,7 +42,7 @@ class Spriggan
   def get_msg
     @beanstalk.tubes.watch!(@module_name)
     job = @beanstalk.tubes.reserve # this will block until a job is received
-    msg_hash = open_msg(job.body)
+    msg_hash = @bean_msg.open_msg(job.body)
     pm2_log "Received job: #{msg_hash['msg']}; from: #{msg_hash['from']};"
     job.delete
     return msg_hash
@@ -76,13 +76,4 @@ class Spriggan
     end #if
     @core_threads = []
   end #def
-
-  private #===========// PRIVATE METHODS //===========//
-
-  # converts a string into a formatted message hash, also decoding
-  # the base64 message string in the hash.
-  def open_msg(str)
-    msg_hash = @bean_msg.open_msg(str)
-    return msg_hash
-  end
 end
