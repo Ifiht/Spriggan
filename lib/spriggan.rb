@@ -1,5 +1,5 @@
-require "./check_conn.rb"
-require "./bean_msg.rb"
+require "spriggan/check_conn"
+require "spriggan/bean_msg"
 require "beaneater"
 
 
