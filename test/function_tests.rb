@@ -22,7 +22,7 @@ class TestSprig < Test::Unit::TestCase
     sp = Spriggan.new
     i = 2
     sp.add_thread {
-      i+=1
+      i += 1
     }
     sp.run
     assert_equal(i, 3)
@@ -32,10 +32,10 @@ class TestSprig < Test::Unit::TestCase
     sp = Spriggan.new
     i = 1
     sp.add_thread {
-      i+=1
+      i += 1
     }
     sp.add_thread {
-      i+=3
+      i += 3
     }
     sp.run
     assert_equal(i, 5)

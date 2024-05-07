@@ -2,11 +2,10 @@ require "spriggan/check_conn"
 require "spriggan/bean_msg"
 require "beaneater"
 
-
 class Spriggan
   attr_accessor :core_threads
   # default handler for any messages received through
-  # beanstalkd. Proc must be able to handle hash in 
+  # beanstalkd. Proc must be able to handle hash in
   # the bean_msg format.
   def initialize(
     beanstalk_host: "127.0.0.1",
@@ -28,7 +27,7 @@ class Spriggan
   end
 
   # Send a message to beanstalkd with a priority of 100 (default is 0,
-  # which is also the highest pri) delay of 0, and ttr of 300. 
+  # which is also the highest pri) delay of 0, and ttr of 300.
   # This will auto-delete the job after 300 seconds.
   def seng_msg(obj, tube)
     bean = @beanstalk.tubes[tube]
@@ -36,14 +35,14 @@ class Spriggan
     bean.put str, :pri => 100, :delay => 0, :ttr => 300
     pm2_log "Sent message: #{str}"
   end
-  
+
   # blocks until a job is sent to the module's beanstalk tube, then
   # decodes it and returns a bean_msg formatted hash.
   def get_msg
     @beanstalk.tubes.watch!(@module_name)
     job = @beanstalk.tubes.reserve # this will block until a job is received
     msg_hash = @bean_msg.open_msg(job.body)
-    pm2_log "Received job: #{msg_hash['msg']}; from: #{msg_hash['from']};"
+    pm2_log "Received job: #{msg_hash["msg"]}; from: #{msg_hash["from"]};"
     job.delete
     return msg_hash
   end
@@ -62,7 +61,7 @@ class Spriggan
     Signal.trap("INT") {
       i = 0
       core_threads.each { |t|
-      pm2_log "killing core thread #{i}.."
+        pm2_log "killing core thread #{i}.."
         t.kill
         i += 1
       }

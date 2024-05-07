@@ -24,7 +24,7 @@ class BeanMsg
     msg_hash = {
       "to" => dest,
       "from" => @origin,
-      "msg" => msg64
+      "msg" => msg64,
     }
     return msg_hash.to_yaml
   end
@@ -35,7 +35,7 @@ class BeanMsg
     msg_hash = {
       "to" => msg_hash64["to"],
       "from" => msg_hash64["from"],
-      "msg" => YAML.load(Base64.decode64(msg_hash64["msg"]))
+      "msg" => YAML.load(Base64.decode64(msg_hash64["msg"])),
     }
     return msg_hash
   end
