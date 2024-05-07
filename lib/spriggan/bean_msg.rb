@@ -35,7 +35,7 @@ class BeanMsg
     msg_hash = {
       "to" => msg_hash64["to"],
       "from" => msg_hash64["from"],
-      "msg" => Base64.decode64(msg_hash64["msg"])
+      "msg" => YAML.load(Base64.decode64(msg_hash64["msg"]))
     }
     return msg_hash
   end

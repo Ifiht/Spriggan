@@ -4,7 +4,7 @@ require "test/unit"
 class TestSprig < Test::Unit::TestCase
   def test_initialization
     sp = Spriggan.new
-    o = sp.log("it was Jack")
+    o = sp.pm2_log("it was Jack")
     assert_equal(o, $stdout)
   end
 
