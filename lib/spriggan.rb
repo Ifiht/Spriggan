@@ -70,9 +70,9 @@ class Spriggan
     }
     @core_threads.each { |thr| thr.wakeup }
     @core_threads.each { |thr| thr.run }
-    if @core_threads.count > 1
-      @core_threads.each { |thr| thr.join }
-    end #if
+    #if @core_threads.count > 1
+    #  @core_threads.each { |thr| thr.join }
+    #end #if
     @core_threads = []
   end #def
 end
