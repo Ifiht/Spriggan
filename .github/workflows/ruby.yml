@@ -39,4 +39,4 @@ jobs:
     - name: Build gem
       run: bundle install
     - name: Run tests
-      run: rake
+      run: bundle exec rake

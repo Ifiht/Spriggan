@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "spriggan"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
   s.required_ruby_version = ">= 3.0.0"
   s.add_runtime_dependency "beaneater", "~> 1.1", ">= 1.1.0"
   s.summary = "Spriggan 🌱"
