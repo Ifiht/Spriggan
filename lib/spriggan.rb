@@ -1,6 +1,7 @@
 require "spriggan/check_conn"
 require "spriggan/bean_msg"
 require "beaneater"
+require "json"
 
 class Spriggan
   attr_accessor :core_threads
@@ -24,6 +25,14 @@ class Spriggan
   def pm2_log(msg)
     $stdout.puts msg
     $stdout.flush
+  end
+
+  # Grabs the current process list from PM2, returns it as an array
+  def pm2_procs
+    proc_list = JSON.parse(%x(pm2 jlist))
+    proc_names = Array.new
+    proc_list.each { |e| proc_names << e["name"] }
+    return proc_names
   end
 
   # Send a message to beanstalkd with a priority of 100 (default is 0,
