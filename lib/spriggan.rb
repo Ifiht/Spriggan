@@ -47,7 +47,7 @@ class Spriggan
   # Send a message to beanstalkd with a priority of 100 (default is 0,
   # which is also the highest pri) delay of 0, and ttr of 300.
   # This will auto-delete the job after 300 seconds.
-  def seng_msg(obj, tube)
+  def send_msg(obj, tube)
     bean = @beanstalk.tubes[tube]
     str = @bean_msg.wrap_msg(obj, tube)
     bean.put str, :pri => 100, :delay => 0, :ttr => 300
