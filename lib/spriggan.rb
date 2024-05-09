@@ -35,6 +35,15 @@ class Spriggan
     return proc_names
   end
 
+  # Grabs all current tubes from beanstalkd
+  def bean_tubes
+    alltubes = Array.new
+    @beanstalk.tubes.all.each do |t|
+      alltubes << t.name
+    end
+    return alltubes
+  end
+
   # Send a message to beanstalkd with a priority of 100 (default is 0,
   # which is also the highest pri) delay of 0, and ttr of 300.
   # This will auto-delete the job after 300 seconds.
