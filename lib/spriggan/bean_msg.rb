@@ -18,11 +18,10 @@ class BeanMsg
   end
 
   # Returns the string to send via beanstalkd
-  def wrap_msg(obj, dest)
+  def wrap_msg(obj)
     msg = obj.to_yaml
     msg64 = Base64.encode64(msg)
     msg_hash = {
-      "to" => dest,
       "from" => @origin,
       "msg" => msg64,
     }
@@ -33,7 +32,6 @@ class BeanMsg
   def open_msg(msg_yaml)
     msg_hash64 = YAML.load(msg_yaml)
     msg_hash = {
-      "to" => msg_hash64["to"],
       "from" => msg_hash64["from"],
       "msg" => YAML.load(Base64.decode64(msg_hash64["msg"])),
     }

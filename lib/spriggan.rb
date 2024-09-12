@@ -4,14 +4,14 @@ require "beaneater"
 require "json"
 
 class Spriggan
-  attr_accessor :core_threads
+  attr_accessor :core_threads, :beanstalk, :bean_msg
   # default handler for any messages received through
   # beanstalkd. Proc must be able to handle hash in
   # the bean_msg format.
   def initialize(
     beanstalk_host: "127.0.0.1",
     beanstalk_port: 11300,
-    module_name: "default"
+    module_name: "core"
   )
     @core_threads = []
     @module_name = module_name
@@ -49,8 +49,8 @@ class Spriggan
   # This will auto-delete the job after 300 seconds.
   def send_msg(obj, tube)
     bean = @beanstalk.tubes[tube]
-    str = @bean_msg.wrap_msg(obj, tube)
-    bean.put str, :pri => 100, :delay => 0, :ttr => 300
+    hashstr = @bean_msg.wrap_msg(obj)
+    bean.put hashstr, :pri => 100, :delay => 0, :ttr => 300
     pm2_log "Sent message: #{str}"
   end
 
