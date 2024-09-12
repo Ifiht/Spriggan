@@ -64,7 +64,7 @@ class Spriggan
       @msg_hash = @bean_msg.open_msg(job.body)
       pm2_log "Received job: #{@msg_hash["msg"]}; from: #{@msg_hash["from"]};"
     rescue Exception => e
-      @sprig.pm2_log("Rescued job: #{e}")
+      pm2_log("Rescued job: #{e}")
     end
     job.delete
     return @msg_hash
