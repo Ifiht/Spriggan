@@ -15,6 +15,7 @@ class Spriggan
   )
     @core_threads = []
     @module_name = module_name
+    @msg_hash = { "msg" => "", "from" => "core" }
     @bean_msg = BeanMsg.new(@module_name)
     @beanstalk_host = beanstalk_host
     @beanstalk_port = beanstalk_port
@@ -59,10 +60,14 @@ class Spriggan
   def get_msg
     @beanstalk.tubes.watch!(@module_name)
     job = @beanstalk.tubes.reserve # this will block until a job is received
-    msg_hash = @bean_msg.open_msg(job.body)
-    pm2_log "Received job: #{msg_hash["msg"]}; from: #{msg_hash["from"]};"
+    begin
+      @msg_hash = @bean_msg.open_msg(job.body)
+      pm2_log "Received job: #{@msg_hash["msg"]}; from: #{@msg_hash["from"]};"
+    rescue Exception => e
+      @sprig.pm2_log("Rescued job: #{e}")
+    end
     job.delete
-    return msg_hash
+    return @msg_hash
   end
 
   # Adds the given block to the core_threads array, and puts it
