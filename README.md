@@ -13,11 +13,12 @@ Climb the beanstalk! Ruby library to interact gracefully with [beanstalkd](https
 - Received messages from `hash = get_msg` will take the following form:
 ```ruby
 hash = {
-  "to" => "<beanstalkd_dest_tube>"
   "from" => "<beanstalkd_src_tube>"
   "msg" => Ruby.object
 }
 ```
+NOTE: It HAS to be a hash. We can't serialize custom Ruby classes over beanstalkd :(
+
 ### PM2
 - Any threads started with `Spriggan.run` have a trap to detect PM2 SIGINTs and exit gracefully
 - Logging messages to PM2 is done with `Spriggan.pm2_log("<message>")`

@@ -13,7 +13,6 @@ class TestSprig < Test::Unit::TestCase
     sp = Spriggan.new(module_name: "test_messages")
     sp.send_msg(i, "test_messages")
     msg_hash = sp.get_msg
-    assert_equal("test_messages", msg_hash["to"])
     assert_equal("test_messages", msg_hash["from"])
     assert_equal(i, msg_hash["msg"])
   end
