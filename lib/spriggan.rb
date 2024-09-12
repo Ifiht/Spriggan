@@ -51,7 +51,7 @@ class Spriggan
     bean = @beanstalk.tubes[tube]
     hashstr = @bean_msg.wrap_msg(obj)
     bean.put hashstr, :pri => 100, :delay => 0, :ttr => 300
-    pm2_log "Sent message: #{str}"
+    pm2_log "Sent message: #{hashstr}"
   end
 
   # blocks until a job is sent to the module's beanstalk tube, then
