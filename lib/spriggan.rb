@@ -55,6 +55,15 @@ class Spriggan
     pm2_log "Sent message: #{hashstr}"
   end
 
+  # Send a plain UTF-8 string to a tube without any YAML/Base64 wrapping.
+  # Use this when the consumer is not a Ruby/Spriggan process (e.g. a C
+  # binary that reads raw job body text directly).
+  def send_msg_cleartxt(str, tube)
+    bean = @beanstalk.tubes[tube]
+    bean.put str.to_s, :pri => 100, :delay => 0, :ttr => 300
+    pm2_log "Sent cleartext message to '#{tube}': #{str}"
+  end
+
   # blocks until a job is sent to the module's beanstalk tube, then
   # decodes it and returns a bean_msg formatted hash.
   def get_msg
