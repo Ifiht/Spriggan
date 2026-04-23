@@ -3,6 +3,7 @@ Gem::Specification.new do |s|
   s.version = "0.2.0"
   s.required_ruby_version = ">= 3.0.0"
   s.add_runtime_dependency "beaneater", "~> 1.1", ">= 1.1.0"
+  s.add_runtime_dependency "base64"
   s.summary = "Spriggan 🌱"
   s.description = "Climb the beanstalk..."
   s.authors = ["Ifiht"]
